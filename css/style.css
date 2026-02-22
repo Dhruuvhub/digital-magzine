@@ -1734,7 +1734,129 @@ a {
   text-align: right;
 }
 
+/* ---------- Mobile Responsive Corrections for First 3 Sections (< 768px) ---------- */
 @media (max-width: 768px) {
+
+  /* Prevent scroll lock / double scroll layout breaking */
+  html,
+  body {
+    overscroll-behavior-y: none;
+    overflow-x: hidden;
+    width: 100vw;
+  }
+
+  /* 1. Hero Title / Dynamic Viewport Handling */
+  .hero-container,
+  .hero-title-section,
+  .timeline-hero,
+  .hero {
+    height: 100svh !important;
+  }
+
+  /* Title Screen Scaling */
+  .title-content {
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .title-content__heading {
+    font-size: min(15vw, 60px) !important;
+    line-height: 1.1 !important;
+    white-space: normal !important;
+  }
+
+  .title-content__subheading {
+    margin-top: 1rem !important;
+  }
+
+  /* 2. Split Screen -> Vertical Stack layout */
+  .timeline-hero.hero {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .hero__side {
+    width: 100% !important;
+    height: 50svh !important;
+    flex: none !important;
+    overflow: hidden !important;
+  }
+
+  /* Hide vertical divider line since we stacked vertically */
+  .hero__divider {
+    display: none !important;
+  }
+
+  /* Ensure the background images scale down properly */
+  .hero__image,
+  .hero__era-image {
+    object-position: center;
+  }
+
+  /* 3. Single Anchor Year Display alignment */
+  .year-display-anchor {
+    top: 50% !important;
+    font-size: clamp(50px, 20vw, 150px) !important;
+    white-space: nowrap !important;
+    z-index: 15 !important;
+    margin: 0 !important;
+  }
+
+  /* 4. Data boxes (State cards) Mobile Re-arrangement */
+  .th-states {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .th-state {
+    position: absolute !important;
+    left: 1rem !important;
+    right: 1rem !important;
+    width: auto !important;
+    padding: 1rem 1.25rem !important;
+  }
+
+  .th-state__title {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .th-state__desc {
+    font-size: 0.85rem;
+  }
+
+  /* Urban card stays at Top half (avoid overlap with centered year) */
+  .hero__side--urban .th-state {
+    bottom: auto !important;
+    top: 4rem !important;
+  }
+
+  /* Rural card stays at bottom of the lower half */
+  .hero__side--rural .th-state {
+    top: auto !important;
+    bottom: 3.5rem !important;
+  }
+
+  /* Fix navigation visual */
+  .th-scroll-indicator {
+    width: 90vw !important;
+    bottom: 1rem !important;
+  }
+
+  /* 5. Section 2 tweaks */
+  .editorial-text {
+    padding: 0 1rem;
+  }
+
+  /* Carryover from By the Numbers section */
   .stats-grid {
     grid-template-columns: 1fr;
   }

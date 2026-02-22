@@ -6,6 +6,14 @@ function initAnimations() {
     // Register ScrollTrigger
     gsap.registerPlugin(ScrollTrigger);
 
+    const isMobile = window.innerWidth < 768;
+    const scrollDuration = isMobile ? '+=2000' : '+=4000';
+
+    if (isMobile) {
+        // Prevent layout shifts from overscroll nav on mobile
+        document.body.style.overscrollBehaviorY = 'none';
+    }
+
     /*  MASTER SCROLL ARCHITECTURE
         ===========================
         One single pinned container (#heroContainer) = 4000px of scroll distance.
@@ -23,9 +31,9 @@ function initAnimations() {
         scrollTrigger: {
             trigger: '#heroContainer',
             start: 'top top',
-            end: '+=4000',
+            end: scrollDuration,
             pin: true,
-            scrub: 1,
+            scrub: isMobile ? 0.5 : 1, // Lower inertia on mobile
             anticipatePin: 1
         }
     });
