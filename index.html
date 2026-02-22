@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PARALLEL FUTURES — Two Classrooms. One Country. Unequal Opportunity.</title>
+  <meta name="description"
+    content="An interactive digital magazine exploring the widening education gap between urban and rural India. A data-driven cinematic narrative from 1990 to 2026.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
+</head>
+
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Section Navigation Dots -->
+  <nav class="section-nav" id="sectionNav">
+    <div class="section-nav__dot active" data-target="titleIntro" data-label="Title"></div>
+    <div class="section-nav__dot" data-target="hero" data-label="Timeline"></div>
+    <div class="section-nav__dot" data-target="intro" data-label="Introduction"></div>
+    <div class="section-nav__dot" data-target="year-2005" data-label="2005"></div>
+    <div class="section-nav__dot" data-target="year-2015" data-label="2015"></div>
+    <div class="section-nav__dot" data-target="year-2020" data-label="2020"></div>
+    <div class="section-nav__dot" data-target="year-2026" data-label="2026"></div>
+    <div class="section-nav__dot" data-target="numbers" data-label="Data"></div>
+    <div class="section-nav__dot" data-target="human-story" data-label="Stories"></div>
+    <div class="section-nav__dot" data-target="solutions" data-label="Solutions"></div>
+    <div class="section-nav__dot" data-target="calculator" data-label="Calculator"></div>
+    <div class="section-nav__dot" data-target="final" data-label="Closing"></div>
+  </nav>
+
+  <!-- Accessibility Toggles -->
+  <div class="a11y-toggle">
+    <button class="a11y-btn" id="contrastToggle" title="Toggle High Contrast"
+      aria-label="Toggle High Contrast">◑</button>
+    <button class="a11y-btn" id="motionToggle" title="Toggle Reduced Motion"
+      aria-label="Toggle Reduced Motion">⏸</button>
+  </div>
+
+  <!-- ===== MAIN SCROLL CONTAINER ===== -->
+  <main id="mainContent">
+
+    <!-- ==================== COMBINED HERO & TIMELINE SEQUENCE ==================== -->
+    <div id="heroContainer" class="hero-container" style="position: relative; height: 100vh; overflow: hidden;">
+
+      <!-- ==================== CINEMATIC TITLE INTRO (MORPH → 1990) ==================== -->
+      <section class="page-section page-section--full page-section--dark hero-title-section" id="titleIntro"
+        data-section="0" aria-label="Cinematic Title"
+        style="position: absolute; inset: 0; z-index: 20; background: transparent;">
+
+        <!-- Layer 1: Hero gradient background (fades out during morph) -->
+        <div class="title-bg" id="titleBg">
+          <div class="title-bg__gradient"></div>
+          <div class="title-bg__grain"></div>
+        </div>
+
+        <!-- Layer 2: Center content -->
+        <div class="title-content">
+          <span class="title-content__label" id="titleLabel">Parallel Futures</span>
+          <h1 class="title-content__heading headline-xl" id="titleHeading">
+            <span class="word">Two</span> <span class="word">Students.</span> <span class="word">One</span> <span
+              class="word">Country.</span>
+          </h1>
+          <p class="title-content__subheading" id="titleSubheading">Two Classrooms. Unequal Opportunity.</p>
+          <!-- Single unified year display anchor -->
+          <div class="year-display-anchor" id="yearDisplayAnchor">1990</div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="title-scroll-prompt" id="titleScrollPrompt">
+          <span>Scroll to explore</span>
+          <div class="scroll-line"></div>
+        </div>
+      </section>
+
+      <!-- ==================== PAGE 1: TIMELINE HERO (PINNED SCROLL TIMELINE) ==================== -->
+      <section class="page-section page-section--full page-section--dark hero timeline-hero" id="hero" data-section="1"
+        aria-label="Cover — Scroll Timeline" style="position: absolute; inset: 0; z-index: 10;">
+
+        <!-- Split background images -->
+        <div class="hero__side hero__side--urban" id="thUrban">
+          <!-- Era-specific stacked images -->
+          <img src="assets/images/urban-1990.png" alt="1990s urban classroom with chalkboard and wooden desks"
+            class="hero__era-image era-active" data-era="0" loading="eager">
+          <img src="assets/images/urban-2005.png" alt="2005 urban computer lab with CRT monitors"
+            class="hero__era-image" data-era="1" loading="lazy">
+          <img src="assets/images/urban-2015.png" alt="2015 smart classroom with digital whiteboard"
+            class="hero__era-image" data-era="2" loading="lazy">
+          <img src="assets/images/urban-classroom.png" alt="2020 online learning setup" class="hero__era-image"
+            data-era="3" loading="lazy">
+          <img src="assets/images/urban-2026.png" alt="2026 AI-powered futuristic classroom" class="hero__era-image"
+            data-era="4" loading="lazy">
+          <div class="hero__overlay"></div>
+          <span class="hero__label"><span class="th-dot th-dot--urban"></span> Urban India</span>
+
+          <!-- Evolution state cards -->
+          <div class="th-states" id="thUrbanStates">
+            <div class="th-state th-state--active" data-index="0">
+              <div class="th-state__icon">🏫</div>
+              <h3 class="th-state__title">Basic Classroom</h3>
+              <p class="th-state__desc">Formal schooling with chalkboards, textbooks, and structured syllabi.</p>
+              <div class="th-state__stat"><span class="th-stat-val">73%</span> Literacy Rate</div>
+            </div>
+            <div class="th-state" data-index="1">
+              <div class="th-state__icon">🖥️</div>
+              <h3 class="th-state__title">Computer Lab Era</h3>
+              <p class="th-state__desc">Dedicated computer rooms. ICT curriculum. Cyber cafés emerge.</p>
+              <div class="th-state__stat"><span class="th-stat-val">10%</span> Internet Access</div>
+            </div>
+            <div class="th-state" data-index="2">
+              <div class="th-state__icon">📡</div>
+              <h3 class="th-state__title">Smart Classroom</h3>
+              <p class="th-state__desc">Digital whiteboards, projectors, and early EdTech apps.</p>
+              <div class="th-state__stat"><span class="th-stat-val">60%</span> Schools with Labs</div>
+            </div>
+            <div class="th-state" data-index="3">
+              <div class="th-state__icon">💻</div>
+              <h3 class="th-state__title">Online Learning</h3>
+              <p class="th-state__desc">Zoom classes, EdTech boom. COVID accelerates digital shift.</p>
+              <div class="th-state__stat"><span class="th-stat-val">82%</span> Online Access</div>
+            </div>
+            <div class="th-state" data-index="4">
+              <div class="th-state__icon">🤖</div>
+              <h3 class="th-state__title">AI-Powered Classroom</h3>
+              <p class="th-state__desc">AI tutors, coding bootcamps, international collaboration.</p>
+              <div class="th-state__stat"><span class="th-stat-val">92%</span> Literacy Rate</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__side hero__side--rural" id="thRural">
+          <!-- Era-specific stacked images -->
+          <img src="assets/images/rural-1990.png" alt="1990s under-tree village school"
+            class="hero__era-image era-active" data-era="0" loading="eager">
+          <img src="assets/images/rural-2005.png" alt="2005 basic single-room village school" class="hero__era-image"
+            data-era="1" loading="lazy">
+          <img src="assets/images/rural-2015.png" alt="2015 rural school with electricity" class="hero__era-image"
+            data-era="2" loading="lazy">
+          <img src="assets/images/rural-classroom.png" alt="2020 rural school with limited devices"
+            class="hero__era-image" data-era="3" loading="lazy">
+          <img src="assets/images/rural-2026.png" alt="2026 rural school with partial digital adoption"
+            class="hero__era-image" data-era="4" loading="lazy">
+          <div class="hero__overlay"></div>
+          <span class="hero__label"><span class="th-dot th-dot--rural"></span> Rural India</span>
+
+          <!-- Evolution state cards -->
+          <div class="th-states" id="thRuralStates">
+            <div class="th-state th-state--active" data-index="0">
+              <div class="th-state__icon">🌳</div>
+              <h3 class="th-state__title">Under-Tree School</h3>
+              <p class="th-state__desc">Open-air classes. One teacher for 4 grades. No electricity.</p>
+              <div class="th-state__stat"><span class="th-stat-val">44%</span> Literacy Rate</div>
+            </div>
+            <div class="th-state" data-index="1">
+              <div class="th-state__icon">🧱</div>
+              <h3 class="th-state__title">Basic Room</h3>
+              <p class="th-state__desc">First permanent classrooms. Mid-day meal drives attendance.</p>
+              <div class="th-state__stat"><span class="th-stat-val">56%</span> Literacy Rate</div>
+            </div>
+            <div class="th-state" data-index="2">
+              <div class="th-state__icon">💡</div>
+              <h3 class="th-state__title">Electricity Arrives</h3>
+              <p class="th-state__desc">Power lines reach school. No computers — budget for repairs first.</p>
+              <div class="th-state__stat"><span class="th-stat-val">68%</span> Literacy Rate</div>
+            </div>
+            <div class="th-state" data-index="3">
+              <div class="th-state__icon">📱</div>
+              <h3 class="th-state__title">Limited Device Sharing</h3>
+              <p class="th-state__desc">One shared smartphone. School closed 18+ months. 10M lost.</p>
+              <div class="th-state__stat"><span class="th-stat-val">24%</span> Device Access</div>
+            </div>
+            <div class="th-state" data-index="4">
+              <div class="th-state__icon">🔄</div>
+              <h3 class="th-state__title">Partial Digital Adoption</h3>
+              <p class="th-state__desc">BharatNet expands slowly. Still fighting for basics, not innovation.</p>
+              <div class="th-state__stat"><span class="th-stat-val">74%</span> Literacy Rate</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center divider -->
+        <div class="hero__divider" id="thDivider"></div>
+
+        <!-- Headings are now inherited visually from titleIntro (so we keep this empty for layout if needed) -->
+        <div class="hero__content" style="pointer-events: none;">
+        </div>
+
+        <!-- Timeline progress track -->
+        <div class="th-scroll-indicator">
+          <div class="th-progress-track">
+            <div class="th-progress-fill" id="thProgressFill"></div>
+          </div>
+          <div class="th-progress-labels">
+            <span>1990</span><span>2000</span><span>2005</span><span>2010</span><span>2015</span><span>2020</span><span>2026</span>
+          </div>
+        </div>
+
+      </section>
+    </div> <!-- /heroContainer -->
+
+    <!-- ==================== PAGE 2: INTRODUCTION ==================== -->
+    <section class="page-section page-section--neutral intro-section" id="intro" data-section="2"
+      aria-label="Introduction">
+      <div class="container">
+        <div class="editorial-text" style="max-width:720px; margin:0 auto;">
+          <span class="section-tag">Introduction</span>
+          <div class="section-rule"></div>
+          <p class="body-lg drop-cap">India's education system serves over 250 million students across 1.5 million
+            schools. Yet behind this staggering scale lies a fundamental divide — one that separates children not by
+            talent but by geography, infrastructure, and access. This is the story of two classrooms, two students, and
+            one widening chasm that threatens the country's most valuable resource: its future.</p>
+          <p class="body-md">In the corridors of metropolitan schools, students log into AI-powered learning platforms.
+            They attend classes in air-conditioned rooms, guided by qualified teachers armed with digital whiteboards
+            and global curricula. Just a few hundred kilometres away, in villages where electricity is still
+            intermittent, another student sits on a mud floor, sharing a single textbook with five classmates, taught by
+            one teacher who covers four grades simultaneously.</p>
+          <p class="body-md">This isn't a story of blame. It's a map of reality — drawn in data, illustrated in human
+            experience, and framed by the urgent question: <em>What will it take to bridge this gap?</em></p>
+          <p class="body-md">Over the next few minutes, we'll walk you through three decades of India's education
+            landscape — from the early reforms of 1990 to the AI-driven classrooms of 2026. At each point, we'll show
+            you how the urban-rural divide grew, what forces shaped it, and where the solutions are emerging.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== PAGE 3: 2005 — THE DIGITAL DIVIDE ==================== -->
+    <section class="page-section page-section--neutral timeline-section" id="year-2005" data-section="3"
+      aria-label="2005 - The Digital Divide Begins">
+      <div class="container">
+        <span class="section-tag" style="color:var(--urban-primary);">Chapter 02</span>
+        <h2 class="headline-lg" style="text-align:center; margin:var(--space-md) 0;">The Digital Divide Begins</h2>
+        <p class="body-md"
+          style="text-align:center; max-width:600px; margin:0 auto var(--space-lg); color:var(--text-secondary);">The
+          internet arrived. But not everywhere. And not equally.</p>
+        <div class="split-content">
+          <div class="split-content__side split-content__side--urban">
+            <span class="split-label split-label--urban" style="color:var(--urban-primary);">Urban India</span>
+            <div class="data-card data-card--urban" data-reveal>
+              <div class="data-card__value"><span class="counter" data-target="10">0</span>%</div>
+              <div class="data-card__label">Internet penetration</div>
+            </div>
+            <p class="body-sm" style="margin-top:var(--space-sm);">Computer labs becoming standard in urban schools.
+              Government introduces ICT@Schools program. Cyber cafés and early broadband connections. Private schools
+              adopt digital learning tools.</p>
+          </div>
+          <div class="split-content__side split-content__side--rural">
+            <span class="split-label split-label--rural" style="color:var(--rural-primary);">Rural India</span>
+            <div class="data-card data-card--rural" data-reveal>
+              <div class="data-card__value"><span class="counter" data-target="1">0</span>%</div>
+              <div class="data-card__label">Internet penetration</div>
+            </div>
+            <p class="body-sm" style="margin-top:var(--space-sm);">Only 56% of rural schools have electricity. No
+              computers, no internet access. Teacher absenteeism at 25%. Mid-day meal scheme drives enrollment, but
+              quality remains poor.</p>
+          </div>
+        </div>
+        <!-- Internet Penetration Line Chart -->
+        <div class="chart-container">
+          <h3 class="label-text" style="text-align:center; margin-bottom:var(--space-sm);">Internet Penetration Growth
+            (2000–2010)</h3>
+          <canvas id="chartInternet2005"
+            aria-label="Line chart showing internet penetration growth — urban vs rural India from 2000 to 2010"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PAGE 4: 2015 — EXPANDING GAP ==================== -->
+    <section class="page-section page-section--dark timeline-section" id="year-2015" data-section="4"
+      aria-label="2015 - Expanding Gap">
+      <div class="container">
+        <span class="section-tag">Chapter 03</span>
+        <!-- Removed embedded year-display -->
+        <h2 class="headline-lg" style="text-align:center; margin:var(--space-md) 0; color:var(--text-light);">The
+          Expanding Gap</h2>
+        <p class="body-md"
+          style="text-align:center; max-width:600px; margin:0 auto var(--space-lg); opacity:0.7; color:var(--text-light);">
+          India's tech boom transformed urban education. Rural classrooms watched from the sidelines.</p>
+        <div class="split-content">
+          <div class="split-content__side split-content__side--urban">
+            <span class="split-label split-label--urban">Urban India</span>
+            <div class="data-card data-card--urban" data-reveal>
+              <div class="data-card__value"><span class="counter" data-target="60">0</span>%</div>
+              <div class="data-card__label">Schools with computer labs</div>
+            </div>
+            <div class="data-card data-card--urban" data-reveal>
+              <div class="data-card__value"><span class="counter" data-target="88">0</span>%</div>
+              <div class="data-card__label">Urban literacy rate</div>
+            </div>
+          </div>
+          <div class="split-content__side split-content__side--rural">
+            <span class="split-label split-label--rural">Rural India</span>
+            <div class="data-card data-card--rural" data-reveal>
+              <div class="data-card__value"><span class="counter" data-target="8">0</span>%</div>
+              <div class="data-card__label">Schools with computer labs</div>
+            </div>
+            <div class="data-card data-card--rural" data-reveal>
+              <div class="data-card__value"><span class="counter" data-target="68">0</span>%</div>
+              <div class="data-card__label">Rural literacy rate</div>
+            </div>
+          </div>
+        </div>
+        <!-- Education Gap Bar Chart -->
+        <div class="chart-container" style="margin-top:var(--space-xl);">
+          <h3 class="label-text" style="text-align:center; margin-bottom:var(--space-sm); color:var(--text-light);">Key
+            Indicators by Area (2015)</h3>
+          <canvas id="chartGap2015"
+            aria-label="Bar chart comparing urban and rural education indicators in 2015"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PAGE 5: 2020 — PANDEMIC SHOCK ==================== -->
+    <section class="page-section page-section--dark timeline-section pandemic-section" id="year-2020" data-section="5"
+      aria-label="2020 - Pandemic Shock">
+      <div class="container">
+        <span class="section-tag" style="color:#EF4444;">Chapter 04</span>
+        <!-- Removed embedded year-display -->
+        <h2 class="headline-lg" style="text-align:center; margin:var(--space-md) 0; color:#EF4444;">Pandemic Shock</h2>
+        <p class="body-md"
+          style="text-align:center; max-width:600px; margin:0 auto var(--space-lg); opacity:0.7; color:var(--text-light);">
+          COVID-19 didn't create the education gap. It made it a canyon.</p>
+        <div class="split-content">
+          <div class="split-content__side split-content__side--urban">
+            <span class="split-label split-label--urban">Urban India</span>
+            <div class="data-card data-card--urban" data-reveal>
+              <div class="data-card__value"><span class="counter" data-target="82">0</span>%</div>
+              <div class="data-card__label">Continued learning via online classes</div>
+            </div>
+            <p class="body-sm" style="color:var(--text-light); opacity:0.8; margin-top:var(--space-sm);">Zoom classes.
+              Google Classroom. Tablets and smartphones at home. Parents working remotely can supervise learning. EdTech
+              platforms like BYJU'S and Unacademy see massive growth.</p>
+          </div>
+          <div class="split-content__side split-content__side--rural">
+            <span class="split-label split-label--rural">Rural India</span>
+            <div class="data-card data-card--rural" data-reveal>
+              <div class="data-card__value"><span class="counter" data-target="24">0</span>%</div>
+              <div class="data-card__label">Had access to any digital device</div>
+            </div>
+            <p class="body-sm" style="color:var(--text-light); opacity:0.8; margin-top:var(--space-sm);">No devices. No
+              internet. Schools closed for 18+ months. Children pulled into farm labour. Girls married off early.
+              Estimated 10 million children may never return to school.</p>
+          </div>
+        </div>
+        <div class="quote-block" id="pandemicQuote">
+          "My daughter used to walk 3 kilometres to school every day. When the school closed, the school never came back
+          to her."
+          <cite>— A mother from Jharkhand, 2021</cite>
+        </div>
+        <div class="counter-row">
+          <div class="counter-item">
+            <div class="counter-item__value" style="color:#EF4444;"><span class="counter" data-target="10">0</span>M
+            </div>
+            <div class="counter-item__label" style="color:var(--text-light);">Children may never return</div>
+          </div>
+          <div class="counter-item">
+            <div class="counter-item__value" style="color:#EF4444;"><span class="counter" data-target="18">0</span>
+            </div>
+            <div class="counter-item__label" style="color:var(--text-light);">Months of school closure</div>
+          </div>
+          <div class="counter-item">
+            <div class="counter-item__value" style="color:#EF4444;"><span class="counter" data-target="58">0</span>%
+            </div>
+            <div class="counter-item__label" style="color:var(--text-light);">Rural access gap to devices</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PAGE 6: 2026 — PRESENT DAY ==================== -->
+    <section class="page-section page-section--dark timeline-section" id="year-2026" data-section="6"
+      aria-label="2026 - Present Day">
+      <div class="container">
+        <span class="section-tag">Chapter 05</span>
+        <div class="bg-shape bg-shape--blue"></div>
+        <h2 class="headline-lg" style="text-align:center; margin:var(--space-md) 0; color:var(--text-light);">Present
+          Day</h2>
+        <p class="body-md"
+          style="text-align:center; max-width:600px; margin:0 auto var(--space-lg); opacity:0.7; color:var(--text-light);">
+          The gap hasn't just widened — it's become a different dimension entirely.</p>
+        <div class="split-content" id="splitShift2026">
+          <div class="split-content__side split-content__side--urban" style="flex:1.15;">
+            <span class="split-label split-label--urban">Urban India</span>
+            <div class="data-card data-card--urban" data-reveal>
+              <div class="data-card__value"><span class="counter" data-target="45">0</span>%</div>
+              <div class="data-card__label">Schools integrating AI tools</div>
+            </div>
+            <div class="data-card data-card--urban" data-reveal>
+              <div class="data-card__value"><span class="counter" data-target="92">0</span>%</div>
+              <div class="data-card__label">Urban literacy rate</div>
+            </div>
+            <p class="body-sm" style="color:var(--text-light); opacity:0.8; margin-top:var(--space-sm);">AI tutors,
+              personalized learning paths, international remote collaborations, coding bootcamps for 10-year-olds.
+              India's urban education is globally competitive.</p>
+          </div>
+          <div class="split-content__side split-content__side--rural" style="flex:0.85;">
+            <span class="split-label split-label--rural">Rural India</span>
+            <div class="data-card data-card--rural" data-reveal>
+              <div class="data-card__value"><span class="counter" data-target="35">0</span>%</div>
+              <div class="data-card__label">Households with internet</div>
+            </div>
+            <div class="data-card data-card--rural" data-reveal>
+              <div class="data-card__value"><span class="counter" data-target="74">0</span>%</div>
+              <div class="data-card__label">Rural literacy rate</div>
+            </div>
+            <p class="body-sm" style="color:var(--text-light); opacity:0.8; margin-top:var(--space-sm);">Basic
+              infrastructure still lacking. Teacher vacancies at 20%. No AI, no coding — many schools still struggle
+              with textbooks and blackboards. The fight is still for access, not innovation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PAGE 7: BY THE NUMBERS ==================== -->
+    <section class="page-section page-section--dark" id="numbers" data-section="7" aria-label="By The Numbers"
+      style="padding:var(--space-2xl) 0;">
+      <div class="container">
+        <span class="section-tag">Data Insights</span>
+        <div class="section-rule"></div>
+        <h2 class="headline-lg" style="color:var(--text-light); margin-bottom:var(--space-sm);">By The Numbers</h2>
+        <p class="body-md"
+          style="color:var(--text-light); opacity:0.6; max-width:600px; margin-bottom:var(--space-xl);">Four key metrics
+          that define the urban-rural education divide in India.</p>
+        <div class="stats-grid">
+          <div class="stat-panel">
+            <div class="stat-panel__title">Dropout Rates (%)</div>
+            <canvas id="chartDropout" aria-label="Bar chart comparing dropout rates in urban and rural India"></canvas>
+            <span class="tooltip-source">Source: UDISE+ Reports, MoE India</span>
+          </div>
+          <div class="stat-panel">
+            <div class="stat-panel__title">Teacher–Student Ratio</div>
+            <canvas id="chartTeacher" aria-label="Chart showing teacher-student ratio comparison"></canvas>
+            <span class="tooltip-source">Source: DISE 2022-23</span>
+          </div>
+          <div class="stat-panel">
+            <div class="stat-panel__title">Internet Access (%)</div>
+            <canvas id="chartInternet" aria-label="Line chart tracking internet access over time"></canvas>
+            <span class="tooltip-source">Source: TRAI, NSO 2023</span>
+          </div>
+          <div class="stat-panel">
+            <div class="stat-panel__title">Higher Education Enrollment (%)</div>
+            <canvas id="chartEnrollment" aria-label="Chart showing higher education enrollment gap"></canvas>
+            <span class="tooltip-source">Source: AISHE 2023</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PAGE 8: THE HUMAN STORY ==================== -->
+    <section class="page-section page-section--dark" id="human-story" data-section="8" aria-label="The Human Story"
+      style="padding:var(--space-xl) 0;">
+      <div class="container">
+        <span class="section-tag">Voices</span>
+        <div class="section-rule"></div>
+        <h2 class="headline-lg" style="color:var(--text-light); margin-bottom:var(--space-xl);">The Human Story</h2>
+      </div>
+      <div class="photo-essay">
+        <div class="photo-essay__item photo-essay__item--wide"
+          style="background:linear-gradient(135deg, #1a2a5c, #0f172a); display:flex; align-items:flex-end;">
+          <div class="photo-essay__caption">
+            <span class="label-text" style="color:var(--accent); display:block; margin-bottom:0.5rem;">Urban Student —
+              Priya, 16, Mumbai</span>
+            <p class="quote headline-sm" style="color:white;">"I'm preparing for IIT-JEE with an AI tutor app. My school
+              has a coding lab where we build projects every week. I want to work at ISRO someday."</p>
+          </div>
+        </div>
+        <div class="photo-essay__item photo-essay__item--narrow"
+          style="background:linear-gradient(180deg, #3b2a18, #1a0f08); display:flex; align-items:center; justify-content:center;">
+          <div style="text-align:center; padding:2rem;">
+            <div class="data-stat" style="color:var(--accent);">2×</div>
+            <p class="label-text" style="color:var(--text-light); margin-top:0.5rem;">more likely to
+              complete<br>secondary school in urban areas</p>
+          </div>
+        </div>
+        <div class="photo-essay__item photo-essay__item--narrow"
+          style="background:linear-gradient(180deg, #0f172a, #1a2a5c); display:flex; align-items:center; justify-content:center;">
+          <div style="text-align:center; padding:2rem;">
+            <div class="data-stat" style="color:var(--graph-urban);">47%</div>
+            <p class="label-text" style="color:var(--text-light); margin-top:0.5rem;">of urban students
+              access<br>supplementary digital learning</p>
+          </div>
+        </div>
+        <div class="photo-essay__item photo-essay__item--wide"
+          style="background:linear-gradient(225deg, #5c3a1a, #2d1f0e); display:flex; align-items:flex-end;">
+          <div class="photo-essay__caption">
+            <span class="label-text" style="color:var(--graph-rural); display:block; margin-bottom:0.5rem;">Rural
+              Student — Raju, 14, Madhya Pradesh</span>
+            <p class="quote headline-sm" style="color:white;">"I share one textbook with four friends. My teacher comes
+              three days a week. During harvest, I help my father in the fields. I want to be a doctor, but I don't know
+              if I can."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PAGE 9: BRIDGING THE GAP ==================== -->
+    <section class="page-section page-section--dark" id="solutions" data-section="9" aria-label="Bridging the Gap"
+      style="padding:var(--space-2xl) 0; background:linear-gradient(180deg, var(--dark-bg) 0%, #1a2a1a 100%);">
+      <div class="container">
+        <span class="section-tag" style="color:#22C55E;">Solutions</span>
+        <div class="section-rule" style="background:#22C55E;"></div>
+        <h2 class="headline-lg" style="color:var(--text-light); margin-bottom:var(--space-sm);">Bridging the Gap</h2>
+        <p class="body-md"
+          style="color:var(--text-light); opacity:0.7; max-width:600px; margin-bottom:var(--space-xl);">The gap is real.
+          But so are the solutions. Across India, innovative initiatives are rewriting the rules of access.</p>
+        <div class="solutions-grid">
+          <div class="solution-card" data-reveal>
+            <div class="solution-card__icon">🏛️</div>
+            <h3 class="solution-card__title" style="color:var(--text-light);">PM SHRI Schools</h3>
+            <p class="solution-card__text" style="color:var(--text-light);">14,500 model schools being upgraded with
+              smart classrooms, labs, and digital infrastructure under the National Education Policy 2020.</p>
+          </div>
+          <div class="solution-card" data-reveal>
+            <div class="solution-card__icon">📱</div>
+            <h3 class="solution-card__title" style="color:var(--text-light);">Low-Cost EdTech</h3>
+            <p class="solution-card__text" style="color:var(--text-light);">Platforms like Pratham's ASER, Diksha, and
+              Khan Academy Lite deliver offline-first education content on basic smartphones and tablets.</p>
+          </div>
+          <div class="solution-card" data-reveal>
+            <div class="solution-card__icon">☀️</div>
+            <h3 class="solution-card__title" style="color:var(--text-light);">Solar-Powered Classrooms</h3>
+            <p class="solution-card__text" style="color:var(--text-light);">NGOs like Barefoot College are deploying
+              solar-powered digital learning centres in off-grid villages across Rajasthan and Jharkhand.</p>
+          </div>
+          <div class="solution-card" data-reveal>
+            <div class="solution-card__icon">👩‍🏫</div>
+            <h3 class="solution-card__title" style="color:var(--text-light);">Community Teacher Training</h3>
+            <p class="solution-card__text" style="color:var(--text-light);">Programs training local youth as
+              para-teachers to fill the 1 million teacher vacancy gap in rural India, connecting communities with
+              education.</p>
+          </div>
+          <div class="solution-card" data-reveal>
+            <div class="solution-card__icon">🌐</div>
+            <h3 class="solution-card__title" style="color:var(--text-light);">BharatNet & 5G Expansion</h3>
+            <p class="solution-card__text" style="color:var(--text-light);">India's mission to connect 250,000 gram
+              panchayats with broadband aims to bring high-speed internet to the last mile by 2027.</p>
+          </div>
+        </div>
+        <div class="counter-row" style="margin-top:var(--space-2xl);">
+          <div class="counter-item">
+            <div class="counter-item__value" style="color:#22C55E;"><span class="counter" data-target="14500">0</span>
+            </div>
+            <div class="counter-item__label" style="color:var(--text-light);">PM SHRI Schools Planned</div>
+          </div>
+          <div class="counter-item">
+            <div class="counter-item__value" style="color:#22C55E;"><span class="counter" data-target="250000">0</span>
+            </div>
+            <div class="counter-item__label" style="color:var(--text-light);">Villages Targeted for Broadband</div>
+          </div>
+          <div class="counter-item">
+            <div class="counter-item__value" style="color:#22C55E;"><span class="counter" data-target="30">0</span>M
+            </div>
+            <div class="counter-item__label" style="color:var(--text-light);">Students Reached by EdTech</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PAGE 10: INTERACTIVE CALCULATOR ==================== -->
+    <section class="page-section page-section--dark calculator-section" id="calculator" data-section="10"
+      aria-label="Education Access Index Calculator" style="padding:var(--space-2xl) 0;">
+      <div class="container">
+        <span class="section-tag">Interactive</span>
+        <div class="section-rule"></div>
+        <h2 class="headline-lg" style="color:var(--text-light); text-align:center; margin-bottom:var(--space-sm);">
+          Education Access Index</h2>
+        <p class="body-md"
+          style="color:var(--text-light); opacity:0.7; text-align:center; max-width:600px; margin:0 auto var(--space-xl);">
+          Enter your parameters and see how your region's education access compares to the national average.</p>
+        <div class="calculator-card">
+          <form id="calcForm" aria-label="Education Access Index Calculator Form">
+            <div class="calc-form-group">
+              <label for="locationType">Location Type</label>
+              <select id="locationType">
+                <option value="" disabled selected>Select your area type</option>
+                <option value="metro">Metro City (Pop. 10L+)</option>
+                <option value="urban">Urban / Tier 2 City</option>
+                <option value="semi-urban">Semi-Urban / Town</option>
+                <option value="rural">Rural Village</option>
+                <option value="remote">Remote / Tribal Area</option>
+              </select>
+            </div>
+            <div class="calc-form-group">
+              <label for="deviceAccess">Device Access at Home</label>
+              <select id="deviceAccess">
+                <option value="" disabled selected>Select device availability</option>
+                <option value="multi">Multiple devices (laptop + smartphone)</option>
+                <option value="single-smart">One smartphone only</option>
+                <option value="shared">Shared device with family</option>
+                <option value="none">No digital device</option>
+              </select>
+            </div>
+            <div class="calc-form-group">
+              <label for="internetAccess">Internet Connectivity</label>
+              <select id="internetAccess">
+                <option value="" disabled selected>Select internet access level</option>
+                <option value="broadband">Home broadband / WiFi</option>
+                <option value="mobile-data">Mobile data (4G/5G)</option>
+                <option value="intermittent">Intermittent / shared access</option>
+                <option value="none">No internet access</option>
+              </select>
+            </div>
+            <div class="calc-form-group">
+              <label for="teacherRatio">Teacher Availability</label>
+              <div class="calc-range-wrapper">
+                <input type="range" id="teacherRatio" min="1" max="80" value="30">
+                <span class="calc-range-value" id="teacherRatioVal" style="color:var(--text-light);">1:30</span>
+              </div>
+              <span class="body-sm" style="opacity:0.5; color:var(--text-light);">Students per teacher</span>
+            </div>
+            <div class="calc-form-group">
+              <label for="schoolDistance">Distance to Nearest School</label>
+              <select id="schoolDistance">
+                <option value="" disabled selected>Select distance</option>
+                <option value="nearby">Under 1 km</option>
+                <option value="walkable">1–3 km</option>
+                <option value="far">3–5 km</option>
+                <option value="very-far">5+ km</option>
+              </select>
+            </div>
+            <button type="submit" class="calc-submit">Calculate Access Score</button>
+          </form>
+          <div class="calc-result" id="calcResult">
+            <div class="calc-result__score" id="calcScore">—</div>
+            <div class="calc-result__label" id="calcLabel">Education Access Index Score</div>
+            <div class="calc-result__comparison" id="calcComparison" style="color:var(--text-light);"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PAGE 11: FINAL SPREAD ==================== -->
+    <section class="page-section page-section--dark final-section" id="final" data-section="11"
+      aria-label="Final Spread">
+      <div class="final-section__content">
+        <span class="section-tag" style="margin-bottom:var(--space-lg); display:block;">Closing</span>
+        <h2 class="headline-xl" id="finalHeadline">Talent is universal. Opportunity is not.</h2>
+        <p class="final-section__closing">The gap exists. But within reach are the tools, policies, and human will to
+          close it.<br>Every child deserves a classroom that believes in their potential.</p>
+        <button class="cta-button" id="ctaButton" onclick="window.open('https://www.cry.org/', '_blank')">Support Equal
+          Education</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/charts.js" defer></script>
+  <script src="js/animations.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+
+</html>
