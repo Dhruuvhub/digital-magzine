@@ -1734,6 +1734,37 @@ a {
   text-align: right;
 }
 
+/* ---------- Cinematic Background Year Watermarks ---------- */
+.timeline-section {
+  position: relative;
+}
+
+.timeline-year {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  font-size: clamp(120px, 20vw, 320px);
+  font-weight: 700;
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+  white-space: nowrap;
+  transition:
+    opacity 0.8s ease,
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.section-content {
+  position: relative;
+  z-index: 2;
+}
+
+.timeline-section.active .timeline-year {
+  opacity: 0.06;
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
 /* ---------- Mobile Responsive Corrections for First 3 Sections (< 768px) ---------- */
 @media (max-width: 768px) {
 

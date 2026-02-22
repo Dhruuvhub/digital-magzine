@@ -113,9 +113,12 @@ function initSectionNav() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                entry.target.classList.add('active');
                 const sectionIndex = entry.target.dataset.section;
                 dots.forEach(d => d.classList.remove('active'));
                 dots[sectionIndex]?.classList.add('active');
+            } else {
+                entry.target.classList.remove('active');
             }
         });
     }, {
