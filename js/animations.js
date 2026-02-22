@@ -7,11 +7,12 @@ function initAnimations() {
     gsap.registerPlugin(ScrollTrigger);
 
     const isMobile = window.innerWidth < 768;
-    const scrollDuration = isMobile ? '+=2000' : '+=4000';
+    const scrollDuration = isMobile ? '+=1500' : '+=4000';
 
     if (isMobile) {
         // Prevent layout shifts from overscroll nav on mobile
         document.body.style.overscrollBehaviorY = 'none';
+        document.documentElement.style.overscrollBehaviorY = 'none';
     }
 
     /*  MASTER SCROLL ARCHITECTURE
@@ -33,8 +34,8 @@ function initAnimations() {
             start: 'top top',
             end: scrollDuration,
             pin: true,
-            scrub: isMobile ? 0.5 : 1, // Lower inertia on mobile
-            anticipatePin: 1
+            scrub: isMobile ? true : 1, // disabled inertia on mobile
+            anticipatePin: isMobile ? 0 : 1 // simplified pinning on mobile
         }
     });
 
